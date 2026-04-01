@@ -1,6 +1,10 @@
-class GestionJeux
+using System.IO;
+using System.Xml.Serialization;
+
+
+public class GestionJeux
 {
-    private List<JeuVideo> jeux;
+    public List<JeuVideo> jeux { get; set; }
 
     public List<JeuVideo> GetJeux()
     {
@@ -42,6 +46,7 @@ class GestionJeux
         Console.WriteLine(" ******************************* \n");
     }
 
+    // Méthodes pour la sauvegarde et le chargement en CSV
     public void SauverCSV(string nomFichier)
     {
         StreamWriter writer = new StreamWriter(nomFichier);
@@ -69,6 +74,26 @@ class GestionJeux
                 j.SetPrix(double.Parse(morceaux[3]));
                 this.jeux.Add(j);
             }
+            reader.Close();
+        }
+    }
+
+    // Méthodes pour la sauvegarde et le chargement en XML
+    public void SauverXml(string nomFichier)
+    {
+        XmlSerializer xs = new XmlSerializer(typeof(List<JeuVideo>));
+        StreamWriter writer = new StreamWriter(nomFichier);
+        xs.Serialize(writer, this.jeux);
+        writer.Close();
+    }
+
+    public void ChargerXml(string nomFichier)
+    {
+        if (File.Exists(nomFichier))
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(List<JeuVideo>));
+            StreamReader reader = new StreamReader(nomFichier);
+            this.jeux = (List<JeuVideo>)xs.Deserialize(reader);
             reader.Close();
         }
     }

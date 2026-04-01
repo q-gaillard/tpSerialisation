@@ -1,9 +1,11 @@
-class JeuVideo
+public class JeuVideo
 {
-    protected string titre;
-    protected string studio;
-    protected DateTime anneeSortie;
-    protected double prix;
+    public string titre { get; set; }
+    public string studio { get; set; }
+    public DateTime anneeSortie { get; set; }
+    public double prix { get; set; }
+
+    public JeuVideo() {} // obligatoire pour la sérialisation XML
 
     public string GetTitre()
     {
@@ -45,13 +47,6 @@ class JeuVideo
         this.studio = studio;
         this.anneeSortie = anneeSortie;
         this.prix = prix;
-    }
-    public JeuVideo()
-    {
-        this.titre = "Inconnu";
-        this.studio = "Inconnu";
-        this.anneeSortie = DateTime.Now;
-        this.prix = 0;
     }
 
     public void AfficherDetails()
