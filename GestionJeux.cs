@@ -1,6 +1,7 @@
 using System.IO;
 using System.Xml.Serialization;
-
+using System.Text.Json;
+using System.Collections.Generic;
 
 public class GestionJeux
 {
@@ -95,6 +96,22 @@ public class GestionJeux
             StreamReader reader = new StreamReader(nomFichier);
             this.jeux = (List<JeuVideo>)xs.Deserialize(reader);
             reader.Close();
+        }
+    }
+
+    // Méthodes pour la sauvegarde et le chargement en JSON
+    public void SauverJson(string nomFichier)
+    {
+        string json = JsonSerializer.Serialize(this.jeux);
+        File.WriteAllText(nomFichier, json);
+    }
+
+    public void ChargerJson(string nomFichier)
+    {
+        if (File.Exists(nomFichier))
+        {
+            string json = File.ReadAllText(nomFichier);
+            this.jeux = JsonSerializer.Deserialize<List<JeuVideo>>(json);
         }
     }
 }

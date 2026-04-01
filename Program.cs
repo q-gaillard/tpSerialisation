@@ -30,5 +30,13 @@ class Program
         gestionJeux.SauverXml("jeux.xml");
         gestionJeux3.ChargerXml("jeux.xml");
         gestionJeux3.AfficherJeux();
+
+        // Sauvegarder les jeux dans un fichier JSON
+        Console.WriteLine("\nSauvegarde des jeux dans un fichier JSON :\n");
+        GestionJeux gestionJeux4 = new GestionJeux();
+        gestionJeux4.AfficherJeux();
+        gestionJeux.SauverJson("jeux.json");
+        gestionJeux4.ChargerJson("jeux.json");
+        gestionJeux4.AfficherJeux();
     }
 }
