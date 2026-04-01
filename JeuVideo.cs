@@ -9,7 +9,7 @@ class JeuVideo
     {
         return this.titre;
     }
-    public string GetGenre()
+    public string GetStudio()
     {
         return this.studio;
     }

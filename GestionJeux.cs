@@ -41,4 +41,35 @@ class GestionJeux
         }
         Console.WriteLine(" ******************************* \n");
     }
+
+    public void SauverCSV(string nomFichier)
+    {
+        StreamWriter writer = new StreamWriter(nomFichier);
+        foreach (JeuVideo j in this.jeux)
+        {
+            writer.WriteLine(j.GetTitre() + ";" + j.GetStudio() + ";" + j.GetAnneeSortie().ToString("yyyy-MM-dd") + ";" + j.GetPrix());
+        }
+        writer.Close();
+    }
+
+    public void ChargerCSV(string nomFichier)
+    {
+        this.jeux.Clear();
+        if (File.Exists(nomFichier))
+        {
+            StreamReader reader = new StreamReader(nomFichier);
+            while (!reader.EndOfStream)
+            {
+                string ligne = reader.ReadLine();
+                string[] morceaux = ligne.Split(';');
+                JeuVideo j = new JeuVideo();
+                j.SetTitre(morceaux[0]);
+                j.SetStudio(morceaux[1]);
+                j.SetAnneeSortie(DateTime.Parse(morceaux[2]));
+                j.SetPrix(double.Parse(morceaux[3]));
+                this.jeux.Add(j);
+            }
+            reader.Close();
+        }
+    }
 }
